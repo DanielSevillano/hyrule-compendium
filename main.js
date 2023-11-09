@@ -26,6 +26,7 @@ async function showCategory(category) {
         image.height = 100;
         image.loading = "lazy";
         image.src = entry.image;
+        image.alt = entry.name;
 
         container.append(image, name);
         main.append(container);
@@ -61,6 +62,7 @@ async function showEntry(id) {
 
     const image = document.createElement("img");
     image.src = entry.image;
+    image.alt = entry.name;
 
     const content = document.createElement("div");
 
