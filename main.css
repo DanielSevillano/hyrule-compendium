@@ -1,0 +1,222 @@
+html {
+    color-scheme: dark;
+    scrollbar-gutter: stable;
+}
+
+body {
+    margin-block: 0;
+    margin-inline: 20px;
+    background-image: url("https://i.pinimg.com/originals/08/bd/c5/08bdc5060ee7eb4708339c693865ff4d.jpg");
+    background-attachment: fixed;
+    font-family: system-ui;
+}
+
+@font-face {
+    font-family: "Hylia Serif";
+    src: url("HyliaSerifBeta-Regular.otf");
+}
+
+h1,
+h2,
+h3 {
+    font-family: "Hylia Serif", system-ui;
+    font-weight: lighter;
+    text-transform: capitalize;
+}
+
+header h1 {
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+button {
+    cursor: pointer;
+}
+
+nav button {
+    background-color: transparent;
+    border: none;
+    filter: grayscale(0.7);
+    transition: filter 300ms;
+}
+
+nav button:hover {
+    filter: grayscale(0.3);
+}
+
+nav button:active,
+nav button.selected {
+    filter: grayscale(0);
+}
+
+main {
+    max-width: 1000px;
+    margin-inline: auto;
+    margin-bottom: 40px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 100px);
+    justify-content: center;
+    gap: 20px;
+}
+
+@keyframes loading {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+main.loading::after {
+    content: "";
+    display: block;
+    margin-inline: auto;
+    margin-top: 40px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 3px solid lightblue;
+    border-top-color: transparent;
+    animation: loading 800ms linear infinite;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+}
+
+.container:hover img {
+    outline: 1px solid lightblue;
+    outline-offset: 3px;
+}
+
+.container img {
+    border-radius: 5px;
+}
+
+.container p {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    margin-top: 0.6em;
+    margin-bottom: 0;
+    font-size: 0.9rem;
+    text-align: center;
+    text-transform: capitalize;
+    overflow: hidden;
+}
+
+body:has(dialog[open]) {
+    overflow-y: hidden;
+}
+
+dialog {
+    max-width: 1000px;
+    padding-block: 20px;
+    padding-inline: 25px;
+    padding-bottom: 20px;
+    box-sizing: border-box;
+    background-color: hsla(194, 80%, 10%, 0.7);
+    backdrop-filter: blur(15px);
+    border: none;
+    border-radius: 5px;
+    scrollbar-gutter: stable;
+}
+
+dialog::backdrop {
+    background-color: hsla(0, 0%, 0%, 0.8);
+}
+
+dialog.loading {
+    visibility: hidden;
+}
+
+dialog .entry {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    column-gap: 30px;
+}
+
+@media (max-width: 650px) {
+    dialog {
+        width: 100%;
+        min-height: 100dvh;
+    }
+
+    dialog .entry {
+        grid-template-columns: 1fr;
+    }
+}
+
+dialog header {
+    width: 100%;
+    grid-column: 1 / -1;
+    margin-bottom: 1em;
+}
+
+dialog header h2 {
+    margin-block: 0;
+}
+
+dialog img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+dialog h3 {
+    margin-bottom: 0;
+}
+
+dialog h3+p,
+dialog h3+ul {
+    margin-top: 0.3em;
+}
+
+dialog ul {
+    padding-left: 1.5em;
+}
+
+dialog li,
+.capitalize {
+    text-transform: capitalize;
+}
+
+dialog footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1em;
+}
+
+dialog footer button {
+    padding: 5px 10px;
+    background-color: hsla(194, 80%, 20%, 0.5);
+    border: none;
+    font-size: 0.95rem;
+    border-radius: 5px;
+    transition: background-color 300ms;
+}
+
+dialog footer button:hover {
+    background-color: hsla(194, 80%, 35%, 0.5);
+}
+
+dialog footer button:active {
+    background-color: hsla(194, 80%, 50%, 0.5);
+}
