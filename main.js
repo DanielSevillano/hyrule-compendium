@@ -126,7 +126,7 @@ async function showEntry(id) {
 
         content.append(heartsTitle, hearts, cookingEffectTitle, cookingEffect);
     }
-    else if (entry.category == "equipment") {
+    else if (entry.category == "equipment" && entry.properties.attack !== null) {
         const propertiesTitle = document.createElement("h3");
         propertiesTitle.textContent = "Properties";
         const properties = document.createElement("p");
