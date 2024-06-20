@@ -104,8 +104,19 @@ main.loading::after {
     outline-offset: 3px;
 }
 
+@keyframes shimmer {
+    0% {
+        background-color: hsla(200, 20%, 70%, 0.9);
+    }
+
+    100% {
+        background-color: hsla(200, 20%, 90%, 0.9);
+    }
+}
+
 .container img {
     border-radius: 5px;
+    animation: shimmer 1s linear infinite alternate;
 }
 
 .container p {
