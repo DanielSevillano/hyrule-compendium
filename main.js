@@ -25,7 +25,7 @@ async function showCategory(category, game = "botw") {
         image.height = 100;
         image.loading = "lazy";
         image.src = entry.image;
-        image.alt = entry.name;
+        image.alt = "image of " + entry.name;
 
         container.append(image, name);
         main.append(container);
@@ -61,7 +61,7 @@ async function showEntry(id, game) {
 
     const image = document.createElement("img");
     image.src = entry.image;
-    image.alt = entry.name;
+    image.alt = "image of " + entry.name;
 
     const content = document.createElement("div");
 
