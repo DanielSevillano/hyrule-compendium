@@ -1,22 +1,21 @@
-async function categoryData(category) {
-    const url = "https://botw-compendium.herokuapp.com/api/v3/compendium/category/" + category;
+async function categoryData(category, game) {
+    const url = "https://botw-compendium.herokuapp.com/api/v3/compendium/category/" + category + "?game=" + game;
     const response = await fetch(url);
     const json = await response.json();
     return json;
 }
 
-async function showCategory(category) {
+async function showCategory(category, game = "botw") {
     main.innerHTML = "";
     main.classList.add("loading");
 
-    const json = await categoryData(category);
+    const json = await categoryData(category, game);
     const entries = json.data.sort((a, b) => a.id - b.id);
-
 
     entries.forEach((entry) => {
         const container = document.createElement("button");
         container.classList.add("container");
-        container.addEventListener("click", () => showEntry(entry.id));
+        container.addEventListener("click", () => showEntry(entry.id, game));
 
         const name = document.createElement("p");
         name.textContent = entry.name;
@@ -34,14 +33,14 @@ async function showCategory(category) {
     });
 }
 
-async function entryData(id) {
-    const url = "https://botw-compendium.herokuapp.com/api/v3/compendium/entry/" + id;
+async function entryData(id, game) {
+    const url = "https://botw-compendium.herokuapp.com/api/v3/compendium/entry/" + id + "?game=" + game;
     const response = await fetch(url);
     const json = await response.json();
     return json;
 }
 
-async function showEntry(id) {
+async function showEntry(id, game) {
     const dialogHeader = dialog.querySelector("header");
     const dialogEntry = dialog.querySelector(".entry");
     const dialogFooter = dialog.querySelector("footer");
@@ -52,7 +51,7 @@ async function showEntry(id) {
     dialog.showModal();
     dialog.classList.add("loading");
 
-    const json = await entryData(id);
+    const json = await entryData(id, game);
     const entry = json.data;
 
     const title = document.createElement("h2");
@@ -147,19 +146,23 @@ async function showEntry(id) {
     dialog.classList.remove("loading");
 }
 
-const url = new URL(location.href);
-const parameters = url.searchParams;
-const category = parameters.get("category");
-
+const header = document.querySelector("header");
 const main = document.querySelector("main");
 const nav = document.querySelector("nav");
 const dialog = document.querySelector("dialog");
+
+const url = new URL(location.href);
+const parameters = url.searchParams;
+let game = parameters.get("game");
+let category = parameters.get("category");
+
 const buttons = nav.querySelectorAll("button");
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
         if (!button.classList.contains("selected") && !main.classList.contains("loading")) {
-            showCategory(button.id);
-            history.pushState(history.state, document.title, url.origin + url.pathname + "?category=" + button.id);
+            category = button.id;
+            showCategory(category, game);
+            history.pushState(history.state, document.title, url.origin + url.pathname + "?game=" + game + "&category=" + category);
 
             buttons.forEach((b) => {
                 if (button == b) b.classList.add("selected");
@@ -169,5 +172,23 @@ buttons.forEach((button) => {
     });
 });
 
+const games = header.querySelectorAll("button");
+games.forEach((button) => {
+    button.addEventListener("click", () => {
+        if (!button.classList.contains("selected") && !main.classList.contains("loading")) {
+            game = button.id;
+            showCategory(category, game);
+            history.pushState(history.state, document.title, url.origin + url.pathname + "?game=" + game + "&category=" + category);
+
+            games.forEach((b) => {
+                if (button == b) b.classList.add("selected");
+                else b.classList.remove("selected");
+            });
+        }
+    });
+});
+
+if (!game) game = "botw";
+header.querySelector("#" + game).classList.add("selected");
 if (!category) buttons[0].click();
 else nav.querySelector("#" + category).click();

@@ -28,6 +28,35 @@ header h1 {
     text-align: center;
 }
 
+header div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-inline: auto;
+    max-width: 600px;
+}
+
+header button {
+    padding: 0.6em 0.5em;
+    background-color: hsla(194, 80%, 20%, 0.8);
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 300ms;
+}
+
+header button:hover,
+header button.selected {
+    background-color: hsla(194, 80%, 35%, 0.8);
+}
+
+@media (max-width: 450px) {
+    header button {
+        font-size: 0.9rem;
+    }
+}
+
 nav {
     display: flex;
     flex-wrap: wrap;
