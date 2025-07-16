@@ -46,9 +46,13 @@ header button {
     transition: background-color 300ms;
 }
 
-header button:hover,
+header button:hover {
+    background-color: hsla(194, 80%, 30%, 0.8);
+}
+
+header button:active,
 header button.selected {
-    background-color: hsla(194, 80%, 35%, 0.8);
+    background-color: hsla(194, 80%, 40%, 0.8)
 }
 
 @media (max-width: 450px) {
